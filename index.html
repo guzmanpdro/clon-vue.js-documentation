@@ -1,0 +1,482 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Introducción - Vue.js</title>
+    <link rel="stylesheet" href="css/main.css">
+    <script defer src="https://cdn.freecodecamp.org/testable-projects-fcc/v1/bundle.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/vue@2/dist/vue.js"></script>
+    <link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/highlight.js/11.3.1/styles/default.min.css">
+    <script src="//cdnjs.cloudflare.com/ajax/libs/highlight.js/11.3.1/highlight.min.js"></script>
+    <script>hljs.highlightAll();</script>
+</head>
+<body>
+    <aside>
+        <nav id="navbar">
+            <header>
+                <h1>Introducción a Vue.js</h1>
+            </header>
+            <ul>
+                <li>
+                    <a class="nav-link" href="#¿qué_es_vue.js?">¿Qué es Vue.js?</a>
+                </li>
+                <li>
+                    <a class="nav-link" href="#empezando">Empezando</a>
+                </li>
+                <li>
+                    <a class="nav-link" href="#renderizado_declarativo">Renderizado declarativo</a>
+                </li>                
+                <li>
+                    <a class="nav-link" href="#condicionales_y_bucles">Condicionales y bucles</a>
+                </li>                
+                <li>
+                    <a class="nav-link" href="#manejo_de_las_entradas_del_usuario">Manejo de las entradas del usuario</a>
+                </li>                
+                <li>
+                    <a class="nav-link" href="#componiendo_con_componentes">Componiendo con componentes</a>
+                </li>                
+            </ul>
+        </nav>
+    </aside>
+    <main id="main-doc">
+        <h2>Introducción</h2>
+        <section class="main-section" id="¿qué_es_vue.js?">
+            <header>
+                <h3>¿Qué es Vue.js?</h3>
+            </header>
+            <p>Vue &#040;pronunciado /vjuː/, como view&#041; es un framework progresivo para la construcción de interfaces de usuario. A diferencia de otros frameworks monolíticos, Vue está diseñado desde el principio para ser adoptado de forma incremental. El núcleo de la biblioteca se centra en la capa de vista solamente, y es fácil de recoger e integrar con otras bibliotecas o proyectos existentes. Por otro lado, Vue también es perfectamente capaz de impulsar sofisticadas aplicaciones de una sola página cuando se utiliza en combinación con herramientas modernas y bibliotecas de apoyo.</p>
+        </section>
+        
+        <section class="main-section" id="empezando">
+            <header>
+                <h3>Empezando</h3>
+            </header>
+            <p>La forma más fácil de probar Vue.js es utilizando el <a href="https://codesandbox.io/s/github/vuejs/vuejs.org/tree/master/src/v2/examples/vue-20-hello-world">ejemplo de Hello World</a>. Siéntete libre de abrirlo en otra pestaña y seguir a lo largo de algunos ejemplos básicos. O bien, puedes crear un archivo <a href="https://github.com/vuejs/vuejs.org/blob/master/src/v2/examples/vue-20-hello-world/index.html">index.html</a> e incluir Vue con:</p>
+
+            <pre>
+                <code class="hljs html">
+&lt;!-- development version, includes helpful console warnings --&gt;
+&lt;script src="https://cdn.jsdelivr.net/npm/vue@2/dist/vue.js"&gt;&lt;/script&gt;
+                </code>
+            </pre>
+
+            <p>or:</p>
+
+            <pre>
+                <code class="hljs html">
+&lt;!-- production version, optimized for size and speed --&gt;
+&lt;script src="https://cdn.jsdelivr.net/npm/vue@2"&gt;&lt;/script&gt;
+                </code>
+            </pre>
+
+            <p>La página de instalación proporciona más opciones de instalación de Vue. Nota: No recomendamos que los principiantes comiencen con vue-cli, especialmente si no están familiarizados con las herramientas de construcción basadas en Node.js.</p>
+
+            <p>Si prefieres algo más interactivo, también puedes echar un vistazo a esta serie de tutoriales en Scrimba, que te ofrece una mezcla de screencast y código de juego que puedes pausar y jugar en cualquier momento.</p>
+        </section>
+
+        <section class="main-section" id="renderizado_declarativo">
+            <header>
+                <h3>Renderizado declarativo</h3>
+            </header>
+            <p>At the core of Vue.js is a system that enables us to declaratively render data to the DOM using straightforward template syntax:</p>
+
+            <pre>
+                <code class="hjls html">
+&lt;div id="app"&gt;
+    {{ message }}
+&lt;/div&gt;
+                </code>
+            </pre>
+
+            <pre>
+                <code class="hljs javascript">
+var app = new Vue({
+    el: '#app',
+    data: {
+        message: 'Hello Vue!'
+    }
+})
+                </code>
+            </pre>
+            <div id="app">
+                {{message}}
+            </div>
+            <script type="text/javascript">
+                var app = new Vue({
+                    el: '#app',
+                    data: { message: 'Hello Vue!'}
+                })
+            </script>
+
+            <p>¡Ya hemos creado nuestra primera aplicación Vue! Esto se parece bastante a renderizar una plantilla de cadenas, pero Vue ha hecho mucho trabajo bajo el capó. Los datos y el DOM están ahora vinculados, y todo es ahora reactivo. ¿Cómo lo sabemos? Abre la consola JavaScript de tu navegador (ahora mismo, en esta página) y establece app.message con un valor diferente. Deberías ver que el ejemplo renderizado de arriba se actualiza en consecuencia.</p>
+
+            <p>Observe que ya no tenemos que interactuar con el HTML directamente. Una aplicación Vue se adjunta a un solo elemento del DOM (#app en nuestro caso) y luego lo controla completamente. El HTML es nuestro punto de entrada, pero todo lo demás ocurre dentro de la instancia Vue recién creada.</p>
+
+            <p>Además de la interpolación de texto, también podemos vincular los atributos de los elementos de esta manera:</p>
+
+            <pre>
+                <code class="hljs html">
+&lt;div id="app-2"&gt;
+    &lt;span v-bind:title="message"&gt;
+        Hover your mouse over me for a few seconds
+        to see my dynamically bound title!
+    &lt;/span&gt;
+&lt;/div&gt;
+                </code>
+            </pre>
+
+            <pre>
+                <code class="hljs javascript">
+var app2 = new Vue({
+    el: '#app2',
+    data: {
+        message: 'You loaded this page on ' + new Date().toLocaleString()
+    }
+})
+                </code>
+            </pre>
+            <div id="app2">
+                <span v-bind:title="message">
+                    Hover your mouse over me for a few second to see my dynamically bound title!
+                </span>
+            </div>
+
+            <script type="text/javascript">
+                var app2 = new Vue({
+                    el: '#app2',
+                    data: {
+                        message: 'You loaded this page on ' + new Date().toLocaleDateString()
+                    }
+                })
+            </script>
+
+            <p>Aquí nos encontramos con algo nuevo. El atributo v-bind que estás viendo se llama directiva. Las directivas llevan el prefijo v- para indicar que son atributos especiales proporcionados por Vue, y como habrás adivinado, aplican un comportamiento reactivo especial al DOM renderizado. Aquí, básicamente está diciendo "mantén el atributo title de este elemento actualizado con la propiedad message en la instancia de Vue".</p>
+
+            <p>Si vuelves a abrir tu consola de JavaScript e introduces app2.message = 'algún mensaje nuevo', verás de nuevo que el HTML vinculado -en este caso el atributo title- se ha actualizado.</p>
+        </section>
+
+        <section class="main-section" id="condicionales_y_bucles">
+            <header>
+                <h3>Condicionales y bucles</h3>
+            </header>
+            <p>También es fácil alternar la presencia de un elemento:</p>
+
+            <pre>
+                <code class="hljs html">
+&lt;div id="app-3"&gt;
+    &lt;span v-if="seen"&gt;Now you see me&lt;/span&gt;
+&lt;/div&gt;
+                </code>
+            </pre>
+
+            <pre>
+                <code class="hljs javascript">
+var app3 = new Vue({
+    el: '#app-3',
+    data: {
+        seen: true
+    }
+})
+                </code>
+            </pre>
+            <div id="app-3">
+                <span v-if="seen">Now you see me</span>
+            </div>
+
+            <script type="text/javascript">
+                var app3 = new Vue({
+                    el:'#app-3',
+                    data: {
+                        seen: true
+                    }
+                })
+            </script>
+
+            <p>Sigue adelante e introduce app3.seen = false en la consola. Deberías ver que el mensaje desaparece.</p>
+
+            <p>Este ejemplo demuestra que podemos enlazar datos no sólo con texto y atributos, sino también con la estructura del DOM. Además, Vue también proporciona un potente sistema de efectos de transición que puede aplicar automáticamente efectos de transición cuando los elementos son insertados/actualizados/eliminados por Vue.</p>
+
+            <p>Hay bastantes otras directivas, cada una con su propia funcionalidad especial. Por ejemplo, la directiva v-for puede utilizarse para mostrar una lista de elementos utilizando los datos de un Array:
+            </p>
+
+            <pre>
+                <code class="hljs html">
+&lt;div id="app-4"&gt;
+    &lt;ol&gt;
+        &lt;li v-for="todo in todos"&gt;
+            {{ todo.text }}
+        &lt;/li&gt;
+    &lt;/ol&gt;
+&lt;/div&gt;
+                </code>
+            </pre>
+
+            <pre>
+                <code class="hljs javascript">
+var app4 = new Vue({
+    el: '#app-4',
+    data: {
+        todos: [
+            { text: 'Learn JavaScript' },
+            { text: 'Learn Vue' },
+            { text: 'Build something awesome' }
+        ]
+    }
+})
+                </code>
+            </pre>
+
+            <div id="app-4">
+                <ol>
+                    <li v-for="todo in todos">
+                        {{ todo.text }}
+                    </li>
+                </ol>
+            </div>
+
+            <script>
+                var app4 = new Vue({
+                    el: '#app-4',
+                    data: {
+                        todos: [
+                            { text: 'Learn JavaScript' },
+                            { text: 'Learn Vue' },
+                            { text: 'Build something awesome' }
+                        ]
+                    }
+                })
+            </script>
+
+            <p>En la consola, introduce app4.todos.push({ text: 'New item' }). Deberías ver un nuevo elemento añadido a la lista.</p>
+        </section>
+
+        <section class="main-section" id="manejo_de_las_entradas_del_usuario">
+            <header>
+                <h3>Manejo de las entradas del usuario</h3>
+            </header>
+            <p>Para permitir que los usuarios interactúen con tu aplicación, podemos utilizar la directiva v-on para adjuntar escuchadores de eventos que invoquen métodos en nuestras instancias de Vue.</p>
+
+            <pre>
+                <code class="hljs html">
+&lt;div id="app-5"&gt;
+    &lt;p&gt;{{ message }}&lt;/p&gt;
+    &lt;button v-on:click="reverseMessage"&gt;
+        Reverse message
+    &lt;/button&gt;
+&lt;/div&gt;
+                </code>
+            </pre>
+
+            <pre>
+                <code class="hljs JavaScript">
+var app5 = new Vue({
+    el: '#app-5',
+    data: {
+        message: 'Hello Vue.js'
+    },
+    methods: {
+        reverseMessage: function() {
+            this.message = this.message.split('').reverse().join('')
+        }
+    }
+})
+                </code>
+            </pre>
+
+            <div id="app-5">
+                <p>{{ message }}</p>
+                <button v-on:click="reverseMessage">
+                    Reverse message
+                </button>
+            </div>
+
+            <script type="text/javascript">
+                var app5 = new Vue({
+                    el: '#app-5',
+                    data: {
+                        message: 'Hello Vue.js!'
+                    },
+                    methods: {
+                        reverseMessage: function() {
+                            this.message = this.message.split('').reverse().join('')
+                        }
+                    }
+                })
+            </script>
+
+            <p>Ten en cuenta que en este método actualizamos el estado de nuestra aplicación sin tocar el DOM - todas las manipulaciones del DOM son manejadas por Vue, y el código que escribes se centra en la lógica subyacente.</p>
+            
+            <p>Vue también proporciona la directiva v-model que hace que la vinculación bidireccional entre la entrada del formulario y el estado de la aplicación sea muy fácil:</p>
+
+            <pre>
+                <code class="hljs html">
+&lt;div id="app-6"&gt;
+    &lt;p&gt;{{ message }}&lt;/p&gt;
+    &lt;input v-model="message"&gt;
+&lt;/div&gt;
+                </code>
+            </pre>
+
+            <pre>
+                <code class="hljs javascript">
+var app6 = new Vue({
+    el: '#app'6,
+    data: {
+        message: 'Hello Vue!'
+    }
+})
+                </code>
+            </pre>
+
+            <div id="app-6">
+                <p>{{ message }}</p>
+                <input v-model="message" type="text">
+            </div>
+
+            <script type="text/javascript">
+                var app6 = new Vue({
+                    el: '#app-6',
+                    data: {
+                        message: 'Hola Vue!'
+                    }
+                })
+            </script>
+        </section>
+
+        <section class="main-section" id="componiendo_con_componentes">
+            <header>
+                <h3>Componiendo con componentes</h3>
+            </header>
+            <p>El sistema de componentes es otro concepto importante en Vue, porque es una abstracción que nos permite construir aplicaciones a gran escala compuestas por componentes pequeños, autocontenidos y a menudo reutilizables. Si lo pensamos bien, casi cualquier tipo de interfaz de aplicación puede abstraerse en un árbol de componentes:</p>
+
+            <img src="https://vuejs.org/images/components.png" alt="Componentes en Vue">
+
+            <p>En Vue, un componente es esencialmente una instancia de Vue con opciones predefinidas. Registrar un componente en Vue es sencillo:</p>
+
+            <pre>
+                <code class="hljs javascript">
+//Define un nuevo componente llamado todo-item
+Vue.component('todo-item', {
+    template: '&lt;li&gt;This is a todo&lt;/li&gt;'
+})
+
+var app = new Vue(...)
+                </code>
+            </pre>
+
+            <p>Ahora puede componerlo en la plantilla de otro componente:</p>
+
+            <pre>
+                <code class="hljs html">
+&lt;ol&gt;
+    &lt;!--Crear una instancia del componente todo-item --&gt;
+    &lt;todo-item&gt;&lt/todo-item&gt;
+&lt;/ol&gt;
+                </code>
+            </pre>
+
+            <p>Pero esto haría el mismo texto para cada cosa, lo que no es súper interesante. Deberíamos ser capaces de pasar datos del ámbito padre a los componentes hijos. Modifiquemos la definicion del componente para que acepte una prop:</p>
+            
+            <pre>
+                <code class="hljs javascript">
+Vue.component('todo-item', { 
+    // El componente todo-item ahora acepta una "prop",
+    // que es como un atributo personalizado.
+    // Esta prop se llama todo */
+    
+    props: ['todo'],
+    template: '&lt;li&gt;{{ todo.text }}&lt;/div&gt;'
+})
+                </code>
+            </pre>
+
+            <p>Ahora podemos pasar el todo a cada componente repetido usando v-bind:</p>
+
+            <pre>
+                <code class="hljs html">
+&lt;div id="app-7"&gt;
+    &lt;ol&gt;
+        &lt;!--
+            Ahora proporcionamos a cada todo-item el objecto todo que representa,
+            para que su contenido pueda ser dinámico. También tenemos que proporcionar
+            a cada componente una "clave", que se explicará más adelante.
+        --&gt;
+        &lt;todo-item
+            v-for="item in groceryList"
+            v-bind:todo="item"
+            v-bind:key="item.id"
+        &gt;&lt;/todo-item&gt;
+    &lt;/ol&gt;
+&lt;/div&gt;
+                </code>
+            </pre>
+
+            <pre>
+                <code class="hljs javascript">
+Vue.component('todo-item', {
+    props: ['todo'],
+    template: '&lt;li&gt;{{ todo.text  }}&lt;/li&gt;'
+})
+
+var app7 = new Vue({
+    el: '#app-7',
+    data: {
+        groceryList: [
+            { id: 0, text: 'Vegetables' },
+            { id: 1, text: 'Cheese' },
+            { id: 2, text: 'Whatever else humans are supposed to eat' }
+        ]
+    }
+})
+                </code>
+            </pre>
+
+            <div id="app-7">
+                <ol>
+                    <todo-item 
+                        v-for="item in groceryList"
+                        v-bind:todo="item"
+                        v-bind:key="item.id"
+                    ></todo-item>
+                </ol>
+            </div>
+
+            <script type="text/javascript">
+                Vue.component('todo-item', {
+                    props: ['todo'],
+                    template: '<li>{{ todo.text }}</li>'
+                })
+
+                var app7 = new Vue({
+                    el: '#app-7',
+                    data: {
+                        groceryList: [
+                            { id: 0, text: 'Verduras'},
+                            { id: 1, text: 'Queso'},
+                            { id: 2, text: 'Cualquier otra cosa que los humanos deban comer'}
+                        ]
+                    }
+                })
+            </script>
+
+            <p>Este es un ejemplo artificial, pero hemos conseguido separar nuestra aplicación en dos unidades más pequeñas, y el hijo está razonablemente bien desacoplado del padre a través de la interfaz props. Ahora podemos mejorar nuestro componente &lt;todo-item&gt; con una plantilla y una lógica más complejas sin afectar a la aplicación principal.</p>
+
+            <p>En una aplicación grande, es necesario dividir toda la app en componentes para que el desarrollo sea manejable. Hablaremos mucho más sobre los componentes más adelante en la guía, pero aquí hay un ejemplo (imaginario) de cómo podría ser la plantilla de una app con componentes:</p>
+
+            <pre>
+                <code class="hljs html">
+&lt;div id="app"&gt;
+    &lt;app-nav&gt;&lt;/app-nav&gt;
+    &lt;app-view&gt;
+        &lt;app-sidebar&gt;&lt;/app-sidebar&gt;
+        &lt;app-content&gt;&lt;/app-content&gt;
+    &lt;/app-view&gt;
+&lt;/div&gt;
+                </code>
+            </pre>
+        </section>
+    </main>
+</body>
+</html>
